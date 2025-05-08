@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Heaven</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Anime Heaven</div>
+    <nav>
+      <a href="#" class="nav-link active">Home</a>
+      <a href="#" class="nav-link">Popular</a>
+      <a href="#" class="nav-link">New Releases</a>
+      <a href="#" class="nav-link">Recently Updated</a>
+    </nav>
+  </header>
+  
+  <main>
+    <div class="search-container">
+      <form id="search-form">
+        <input type="text" class="search-input" name="query" placeholder="Search for anime..." required>
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+    </div>
+
+    <!-- Popular Anime Section -->
+    <section class="anime-section">
+      <div class="section-header">
+        <h2>Popular Anime</h2>
+        <button class="view-more" onclick="loadMore('popular')">View More</button>
+      </div>
+      <div id="popular-anime" class="results-grid">
+        <!-- Popular anime will be loaded here -->
+      </div>
+    </section>
+
+    <!-- New Releases Section -->
+    <section class="anime-section">
+      <div class="section-header">
+        <h2>New Releases</h2>
+        <button class="view-more" onclick="loadMore('new')">View More</button>
+      </div>
+      <div id="new-anime" class="results-grid">
+        <!-- New anime will be loaded here -->
+      </div>
+    </section>
+
+    <!-- Recently Updated Episodes Section -->
+    <section class="anime-section">
+      <div class="section-header">
+        <h2>Recently Updated Episodes</h2>
+        <button class="view-more" onclick="loadMore('updated')">View More</button>
+      </div>
+      <div id="updated-anime" class="results-grid">
+        <!-- Updated anime will be loaded here -->
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

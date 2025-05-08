@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Player</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Anime Heaven</div>
+    <a href="/" class="back-btn">← Back</a>
+  </header>
+  
+  <main>
+    <!-- Replace the video player section with this -->
+<div class="player-container">
+  <h1 id="player-title">Loading...</h1>
+  <div class="video-container">
+    <video controls autoplay class="video-player" id="video-player">
+      Your browser does not support the video tag.
+    </video>
+    <div id="loading-overlay" class="loading-overlay">
+      <div class="loading-spinner"></div>
+      <p>Loading video...</p>
+    </div>
+  </div>
+  
+  <div id="quality-options" class="quality-options" style="display: none;">
+    <p>Select Quality:</p>
+    <div id="quality-buttons"></div>
+  </div>
+</div>
+  </main>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

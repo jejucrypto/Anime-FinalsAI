@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anime Details</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Anime Heaven</div>
+    <a href="/" class="back-btn">← Back</a>
+  </header>
+  
+  <main>
+    <div class="anime-header">
+      <img id="anime-poster" class="anime-poster-large" src="" alt="Anime poster">
+      <div class="anime-meta">
+        <h1 id="anime-title" class="anime-detail-title">Loading...</h1>
+        <div class="anime-stats">
+          <span id="anime-status" class="anime-stat"></span>
+          <span id="anime-score" class="anime-stat"></span>
+          <div id="anime-genres" class="anime-genres"></div>
+        </div>
+        <p id="episode-count" class="episode-count"></p>
+      </div>
+    </div>
+
+    <div class="anime-description">
+      <h3>Description</h3>
+      <p id="anime-description">Loading description...</p>
+    </div>
+
+    <div class="episodes-section">
+      <h3>Episodes</h3>
+      <div class="episodes-container" id="episodes-container">
+        <!-- Episodes will be inserted here by JavaScript -->
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>
