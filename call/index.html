@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple WebRTC Audio Call</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Simple Audio Call</h1>
+            <div id="callIdDisplay" class="call-id-display" style="display: none;">
+                Call ID: <span id="callIdText"></span>
+                <button id="copyCallId">Copy</button>
+            </div>
+            <div class="call-controls">
+                <button id="startCall">Start Call</button>
+                <button id="joinCall">Join Call</button>
+                <button id="leaveCall" disabled>Leave Call</button>
+                <button id="toggleMic">Mute Mic</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="participants">
+                <h2>Participants</h2>
+                <div id="participantsList">
+                    <!-- Participants will be added here dynamically -->
+                </div>
+            </div>
+
+            <div class="chat">
+                <h2>Chat</h2>
+                <div id="chatMessages">
+                    <!-- Chat messages will appear here -->
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="messageInput" placeholder="Type your message...">
+                    <button id="sendMessage">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
