@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Search Results</title>
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
   <header class="header">
@@ -20,6 +20,52 @@
     <div id="loading" class="loading">Loading results...</div>
   </main>
 
-  <script src="/js/main.js"></script>
+  <script src="js/main.js"></script>
+
+    <!-- AI Assistant Integration -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="css/ai-assistant.css">
+    
+    <div id="floating-button">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="white"/>
+        <path d="M11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="white"/>
+      </svg>
+    </div>
+  
+    <div id="floating-window">
+      <div class="window-header">
+        <span>Anime Assistant</span>
+        <button id="close-button" class="close-btn" aria-label="Close chat">×</button>
+      </div>
+      <div class="window-content">
+        <div id="chat-container" class="chat-container">
+          <div class="chat-message bot-message animate__animated animate__fadeIn">
+            <div class="markdown-content">Hello! I'm your Anime Assistant. Ask me about anime recommendations, plot details, or anything anime-related!</div>
+          </div>
+        </div>
+        <div id="typing-indicator" class="typing-indicator">
+          <span>AI is typing</span>
+          <div class="typing-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="chat-input-container">
+        <input type="text" class="chat-input" id="userInput" placeholder="Ask about anime..." aria-label="Type your message">
+        <button class="send-button" id="send-button" aria-label="Send message">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="js/ai-assistant.js"></script>
+    <!-- End AI Assistant Integration -->
 </body>
 </html>

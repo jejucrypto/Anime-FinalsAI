@@ -350,3 +350,47 @@ a:hover {
   height: 50px;
   border-width: 6px;
 }
+
+/* Anime Stats Grid */
+.anime-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 15px;
+  margin: 20px 0;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.stat-label {
+  font-weight: bold;
+  color: #f47521;
+  font-size: 14px;
+}
+
+.stat-value {
+  color: #ddd;
+  font-size: 15px;
+}
+
+.star-rating {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.star-rating i {
+  color: #f47521;
+  font-size: 16px;
+}
+
+.rating-value {
+  margin-left: 5px;
+  color: #ddd;
+}
+
+/* Font Awesome for star icons */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css');

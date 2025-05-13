@@ -7,6 +7,30 @@ document.getElementById('search-form')?.addEventListener('submit', function(e) {
   }
 });
 
+// Helper function to query AniList API
+async function queryAniList(query, variables = {}) {
+  const url = 'https://graphql.anilist.co';
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify({
+      query,
+      variables
+    })
+  };
+
+  try {
+    const response = await fetch(url, options);
+    return await response.json();
+  } catch (error) {
+    console.error('AniList API error:', error);
+    return null;
+  }
+}
+
 // Load search results
 if (window.location.pathname === '/search') {
   const loadSearchResults = async () => {
@@ -150,25 +174,138 @@ if (window.location.pathname === '/select') {
       const response = await fetch(`/get-anime-details?id=${animeId}`);
       const anime = await response.json();
       
+      // Basic info
       document.title = anime.title.romaji || anime.title.english;
       document.getElementById('anime-title').textContent = anime.title.romaji || anime.title.english;
       document.getElementById('anime-poster').src = anime.coverImage.large;
       document.getElementById('anime-poster').alt = anime.title.romaji;
-      document.getElementById('episode-count').textContent = `${anime.episodes || '?'} episodes`;
-      // In the loadAnimeDetails function:
-      document.getElementById('anime-description').textContent = anime.description?.replace(/<[^>]*>/g, '') || 'No description available';
       
+      // Description
+      const description = anime.description?.replace(/<[^>]*>/g, '') || 'No description available';
+      document.getElementById('anime-description').textContent = description;
+      
+      // Enhanced anime stats section
+      const animeStatsHTML = `
+        <div class="anime-stats-grid">
+          ${anime.averageScore ? `
+            <div class="stat-item">
+              <span class="stat-label">Rating:</span>
+              <div class="star-rating">
+                ${generateStarRating(anime.averageScore)}
+                <span class="rating-value">${(anime.averageScore / 10).toFixed(1)}/10</span>
+              </div>
+            </div>
+          ` : ''}
+          
+          ${anime.popularity ? `
+            <div class="stat-item">
+              <span class="stat-label">Views:</span>
+              <span class="stat-value">${formatNumber(anime.popularity)}</span>
+            </div>
+          ` : ''}
+          
+          ${anime.startDate ? `
+            <div class="stat-item">
+              <span class="stat-label">Released:</span>
+              <span class="stat-value">${formatDate(anime.startDate)}</span>
+            </div>
+          ` : ''}
+          
+          ${anime.status ? `
+            <div class="stat-item">
+              <span class="stat-label">Status:</span>
+              <span class="stat-value">${formatStatus(anime.status)}</span>
+            </div>
+          ` : ''}
+          
+          ${anime.episodes ? `
+            <div class="stat-item">
+              <span class="stat-label">Episodes:</span>
+              <span class="stat-value">${anime.episodes}</span>
+            </div>
+          ` : ''}
+          
+          ${anime.genres?.length ? `
+            <div class="stat-item">
+              <span class="stat-label">Genres:</span>
+              <span class="stat-value">${anime.genres.join(', ')}</span>
+            </div>
+          ` : ''}
+          
+          ${anime.synonyms?.length ? `
+            <div class="stat-item">
+              <span class="stat-label">Also Known As:</span>
+              <span class="stat-value">${anime.synonyms.join(', ')}</span>
+            </div>
+          ` : ''}
+        </div>
+      `;
+      
+      document.getElementById('anime-stats').innerHTML = animeStatsHTML;
+      
+      // Episodes
       const episodesContainer = document.getElementById('episodes-container');
       const episodeCount = anime.episodes || 12;
       
       episodesContainer.innerHTML = Array.from({ length: episodeCount }, (_, i) => 
         `<a href="/play?title=${encodeURIComponent(anime.title.romaji)}&episode=${i+1}" class="episode-btn">Episode ${i+1}</a>`
       ).join('');
+      
     } catch (error) {
       document.getElementById('anime-title').textContent = 'Error loading anime details';
       console.error('Anime details error:', error);
     }
   };
+  
+  // Helper functions
+  function generateStarRating(score) {
+    const starsTotal = 5;
+    const starPercentage = (score / 100) * starsTotal;
+    const starPercentageRounded = Math.round(starPercentage * 10) / 10;
+    
+    let starsHTML = '';
+    for (let i = 1; i <= starsTotal; i++) {
+      if (i <= starPercentageRounded) {
+        starsHTML += '<i class="fas fa-star"></i>';
+      } else if (i - 0.5 <= starPercentageRounded) {
+        starsHTML += '<i class="fas fa-star-half-alt"></i>';
+      } else {
+        starsHTML += '<i class="far fa-star"></i>';
+      }
+    }
+    return starsHTML;
+  }
+  
+  function formatNumber(num) {
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1) + 'M';
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toString();
+  }
+  
+  function formatDate(date) {
+    if (!date) return 'Unknown';
+    const { year, month, day } = date;
+    return new Date(year, month - 1, day).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+  
+  function formatStatus(status) {
+    const statusMap = {
+      'RELEASING': 'Currently Airing',
+      'FINISHED': 'Completed',
+      'NOT_YET_RELEASED': 'Not Yet Released',
+      'CANCELLED': 'Cancelled',
+      'HIATUS': 'On Hiatus'
+    };
+    return statusMap[status] || status;
+  }
   
   window.addEventListener('load', loadAnimeDetails);
 }
